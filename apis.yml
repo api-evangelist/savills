@@ -1,0 +1,89 @@
+aid: savills
+url: https://raw.githubusercontent.com/api-evangelist/savills/refs/heads/main/apis.yml
+name: Savills
+kind: company
+description: >-
+  Savills plc is a London-headquartered global real estate advisor, established in
+  1855, listed on the London Stock Exchange, with more than 42,000 people in over 70
+  countries. It sits on the advisory side of the property value chain rather than the
+  data-platform side: commercial and prime residential agency, transaction advisory
+  and capital markets, valuation and professional services, building and project consultancy,
+  property and facilities management, rural and agricultural advisory, occupier
+  services, the Savills Research publication programme, and a separate fund manager
+  in Savills Investment Management. Its home market is the United Kingdom, where
+  there is no MLS and no cooperative listing standard — residential stock reaches
+  consumers through the Rightmove and Zoopla duopoly by way of agency CRM software
+  (Reapit, Alto, Street, Apex27) rather than a shared cooperative pool. Savills is a
+  supplier into that pipe, not an operator of it. Its API posture is the honest null
+  case for this sector. Savills publishes no developer portal, no API documentation, no SDK, no
+  Postman collection and no machine-readable contract of any kind: developer.,
+  developers., docs. and apis.savills.com do not resolve, /developers, /api, /docs,
+  /openapi.json, /swagger.json and /api-docs on savills.com, savills.co.uk and
+  savills.us all return 404, and no OpenID Connect discovery document is served.
+  Undocumented internal service hosts do exist behind the consumer property search —
+  livev6-searchapi, livev6-authentication and livev6-profile.savills.com, named in
+  the search application's own endpoints.js — but every one of them returns 404 to an
+  anonymous client and none is described anywhere public. There is no RESO Web API or
+  Data Dictionary certification, no OData $metadata document and no Universal Property
+  Identifier anywhere in the Savills estate; RESO is a North American NAR/MLS
+  construct and the UK has nothing to certify against. Savills publishes no open data
+  either — its research output is PDF and web narrative, and the genuinely open UK
+  property layer belongs to the public sector (HM Land Registry Price Paid Data and
+  Ordnance Survey), not to the brokerage. For a developer there is no gate to pass,
+  because there is no door: the only published route is the corporate contact form.
+accessModel:
+  pricing: unknown
+  onboarding: none-published
+  trial: false
+  try_now: false
+  public: false
+  label: No published developer surface · contact only
+  confidence: high
+  source:
+  - probes
+  - website
+  generated: '2026-07-26'
+  method: manual
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+tags:
+- Real Estate
+- United Kingdom
+- Commercial Real Estate
+- Property Listings
+- Valuation
+- Property Management
+- Brokerage
+- Rentals
+- PropTech
+- Investment Management
+created: '2026-07-26'
+modified: '2026-07-26'
+specificationVersion: '0.19'
+apis: []
+common:
+- type: Website
+  url: https://www.savills.com/
+- type: Website
+  name: Savills United Kingdom
+  url: https://www.savills.co.uk/
+- type: Website
+  name: Savills United States
+  url: https://www.savills.us/
+- type: PropertySearch
+  name: Savills Property Search
+  url: https://search.savills.com/list
+- type: InvestorRelations
+  url: https://ir.savills.com/
+- type: Research
+  name: Insight & Opinion
+  url: https://www.savills.com/insight-and-opinion/
+- type: Contact
+  url: https://www.savills.com/contact-us/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/savills
+- type: Subsidiary
+  name: Savills Investment Management
+  url: https://savillsim.com/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

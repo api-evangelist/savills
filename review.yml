@@ -1,0 +1,517 @@
+aid: savills
+name: Savills
+review:
+  question: What is Savills' real, publicly reachable API surface, what does a
+    developer have to sign or join to use it, and what is its RESO posture?
+  date: '2026-07-26'
+  reviewer: API Evangelist
+  homeMarket: United Kingdom
+  tier: brokerage
+  primaryDomain: savills.com
+  summary: |
+    Savills has no developer surface at all. This is not a case of a certified
+    endpoint sitting behind a licence, and it is not a case of docs being public
+    while credentials are gated — it is the plain absence of any published API
+    programme by a FTSE-250 global real estate advisor with 42,000 people in 70
+    countries.
+
+    Every conventional developer entry point was probed on 2026-07-26 and every
+    one failed. developer.savills.com, developers.savills.com, docs.savills.com
+    and apis.savills.com do not resolve in DNS at all (curl exit 6, recorded as
+    status 000). api.savills.com does resolve, to 172.166.206.45, and answers
+    with a JSON body — but that body is {"statusCode": 404, "message": "Resource
+    not found"} on every path tried, which is an API gateway with no public
+    routes rather than a developer product. On the three main web properties
+    (savills.com, savills.co.uk, savills.us) the paths /developers, /api, /docs,
+    /openapi.json, /swagger.json, /api-docs and /.well-known/openid-configuration
+    are uniformly 404. The 82 KB sitemap at https://www.savills.com/sitemap.xml
+    was fetched (HTTP 200) and grepped case-insensitively for "developer",
+    "/api", "swagger" and "openapi": zero matches across the whole document.
+
+    The one genuinely interesting artifact is negative evidence of a private
+    estate. The property search front end at https://search.savills.com/ (a
+    CloudFront distribution that 301s to https://www.savills.co.uk/find-a-property/)
+    loads https://search.savills.com/js/endpoints.js, which returns HTTP 200 with
+    a single line naming the internal services behind the consumer search:
+    profileEndpoint https://livev6-profile.savills.com, authenticationEndpoint
+    https://livev6-authentication.savills.com, dataEndpoint
+    https://livev6-searchapi.savills.com, contentEndpoint
+    https://assets.savills.com. These are real, running hosts. They are also
+    entirely undocumented: every one of them returned 404 to an anonymous root
+    request, including /swagger/v1/swagger.json, /openapi.json and /$metadata on
+    the search API, and /.well-known/openid-configuration on the authentication
+    host. Savills clearly runs internal APIs. It publishes none of them.
+
+    No spec of any kind was harvested, so there is no openapi/ directory in this
+    repo. apis[] in apis.yml is empty, which is the correct and honest result.
+
+resoPosture:
+  certified: false
+  posture: No RESO reference found anywhere in Savills' web estate; RESO is a
+    North American NAR/MLS construct and the United Kingdom has no MLS to
+    certify against.
+  webApiCertification: none found
+  dataDictionaryCertification: none found
+  dataDictionaryVersion: null
+  directoryEvidence: |
+    https://www.reso.org/certificates/ — the official list of RESO certified
+    organizations — was fetched (HTTP 200) and searched for Savills, Savills
+    Inc and Savills plc. No match. The list contains MLSs, pooled platforms,
+    technology vendors, commercial entities and brokerages, all United States
+    based, with statuses such as "Certified Current", "Passed Current",
+    "Certified Legacy" and "Uncertified". Savills appears in none of them.
+    https://www.reso.org/certification/ was also fetched (HTTP 200) and names no
+    non-US organizations. https://certification.reso.org/, the live analytics
+    certification report, returned HTTP 400 to an anonymous client and could not
+    be queried programmatically.
+  odataEndpoint: none
+  metadataDocument: |
+    Probed https://api.savills.com/$metadata (HTTP 404, content-type
+    application/json) and https://livev6-searchapi.savills.com/$metadata (HTTP
+    404, content-type application/json). No OData service document and no
+    $metadata exists anywhere in the Savills estate. Nothing OData-shaped was
+    found to save verbatim.
+  universalPropertyIdentifier: |
+    No UPI. Savills identifies property with its own opaque numeric listing
+    identifiers in search.savills.com URL paths (for example
+    /list/property-for-sale/54237). Nothing in the public estate maps to a RESO
+    Universal Property Identifier, and no UPI string appears in any fetched page.
+  usArmNote: |
+    Savills does operate in the United States (savills.us, the former Savills
+    Studley), but that arm is a commercial real estate services firm — office,
+    industrial, retail, tenant representation, capital markets — not a
+    residential brokerage participating in an MLS. RESO certification is a
+    residential-MLS mechanism, so its absence for Savills' US arm is structural
+    rather than a lapse. www.savills.us/developers and www.savills.us/api both
+    return 404, and developer.savills.us does not resolve.
+  marketNote: |
+    This is the expected UK answer and should not be read as a failing. The UK
+    has no MLS and therefore no cooperative standard to certify against.
+    Residential listings are controlled by two portals — Rightmove and Zoopla —
+    and reach them through agency CRM software (Reapit, Alto, Street, Apex27)
+    rather than a shared cooperative pool. Savills is a supplier into that pipe,
+    not an operator of it. "Certified but not reachable" does not apply here:
+    there is no certification layer in this market at all.
+
+accessGate:
+  gate: none-published
+  gated: true
+  selfServe: false
+  portalConfirmed: false
+  whatYouMustSignOrJoin: |
+    Nothing, because nothing is offered. There is no developer signup, no
+    application form, no partner programme page, no data licence, no sandbox, no
+    API terms of use and no API key issuance process published anywhere on
+    savills.com, savills.co.uk, savills.us or savillsim.com. A developer wanting
+    Savills data has exactly one published route: the general corporate contact
+    form at https://www.savills.com/contact-us/ (HTTP 200), which is a sales and
+    enquiry channel, not a developer channel. Any resulting arrangement would be
+    a bespoke commercial conversation with no public terms — which is why the
+    gate is recorded as none-published rather than partner-only. Classifying it
+    as partner-only would imply a partner programme exists; none is published.
+  credentialIssuance: |
+    Not applicable. No credential issuance process of any kind is documented.
+    The only login on the estate is the consumer "My Account" / saved-property
+    feature at https://search.savills.com/account, which is an end-user account
+    on the property search app, not a developer account.
+  docsAreOpen: |
+    Nothing to open. Unlike Zoopla — where the contracts are public even though
+    the data behind them is not — Savills publishes neither contracts nor
+    reference documentation. The distinction between an open contract and an
+    open dataset does not arise here because neither exists.
+
+openData:
+  publishesOpenData: false
+  note: |
+    Savills publishes no open, unlicensed, publicly callable dataset. Savills
+    Research is a substantial and well-known publication programme, but it ships
+    as PDF reports and web narrative under
+    https://www.savills.com/insight-and-opinion/ (HTTP 200) with no data
+    download, no CSV, no feed and no API. research.savills.com does not resolve;
+    the regional research site referenced from the UK property pages is
+    https://research.euro.savills.co.uk/, which serves report imagery and PDFs
+    rather than data.
+
+    The genuinely open UK property layer sits in the public sector and is not
+    operated by Savills: HM Land Registry Price Paid Data and ownership data
+    under the Open Government Licence, and Ordnance Survey's addressing and
+    mapping open products. This is the structural inverse of the United States:
+    the UK has no industry standard and no MLS, but it does have real open
+    government property APIs — and none of them come from the brokerages or the
+    portals.
+
+authModel:
+  scheme: none published
+  detail: |
+    No authentication scheme is documented because no API is documented. Probed
+    anonymously for OIDC discovery on three hosts and got 404 on all three:
+      https://www.savills.com/.well-known/openid-configuration (404)
+      https://www.savills.co.uk/.well-known/openid-configuration (404)
+      https://livev6-authentication.savills.com/.well-known/openid-configuration
+        (404, content-type application/json)
+    The last of these is the authentication service the consumer property search
+    actually calls, named in search.savills.com/js/endpoints.js. It is running
+    and it answers in JSON, but it serves no discovery document to an anonymous
+    client and no scopes, flows or token endpoint are published anywhere. No API
+    key scheme, no OAuth2 flow, no SAML member-portal entry point and no
+    security.txt (https://www.savills.com/.well-known/security.txt returned 404).
+
+internalUndocumentedHosts:
+  note: |
+    Recorded as evidence of a private API estate, NOT as a public API surface.
+    None of these is documented, none is offered to developers, and none is
+    listed in apis.yml.
+  source:
+    url: https://search.savills.com/js/endpoints.js
+    status: 200
+    contentType: text/html; charset=utf-8
+    server: nginx/1.30.2 behind CloudFront, x-powered-by Express
+    verbatim: >-
+      var APP_ENDPOINTS = {"profileEndpoint":"https://livev6-profile.savills.com","authenticationEndpoint":"https://livev6-authentication.savills.com","dataEndpoint":"https://livev6-searchapi.savills.com","searchDomain":"https://search.savills.com","contentEndpoint":"https://assets.savills.com"}
+  hosts:
+  - host: https://livev6-searchapi.savills.com
+    role: dataEndpoint for the consumer property search
+    rootStatus: 404
+  - host: https://livev6-authentication.savills.com
+    role: authenticationEndpoint for the consumer property search
+    rootStatus: 404
+  - host: https://livev6-profile.savills.com
+    role: profileEndpoint (saved searches / saved properties)
+    rootStatus: 404
+  - host: https://assets.savills.com
+    role: contentEndpoint (static asset origin)
+    rootStatus: 200
+    contentType: application/xml
+  - host: https://api.savills.com
+    role: >-
+      Resolves to 172.166.206.45 (Azure range) and answers every request with a
+      JSON body {"statusCode": 404, "message": "Resource not found"}, setting a
+      cookiesession1 cookie. Behaves like an API gateway or WAF fronting private
+      routes. No public route, no documentation, no spec.
+    rootStatus: 404
+
+apiFamily:
+  note: |
+    Savills' product family is recorded here as the business segmentation the
+    company itself uses on its website, because there is no API documentation to
+    take a segmentation from. None of these business lines has a corresponding
+    documented API.
+  segmentationUsedByTheSite:
+  - Find a property — residential sales and lettings, new homes, commercial
+    (office, industrial, retail, leisure, hotel, development land, investment),
+    farms, estates and equestrian, international
+  - Valuation and professional services
+  - Property and facilities management
+  - Occupier services and tenant representation
+  - Capital markets and investment sales
+  - Building and project consultancy
+  - Rural, energy and agricultural advisory
+  - Research and consultancy (Insight & Opinion)
+  - Investment management (Savills Investment Management, savillsim.com)
+  listingsSearch: >-
+    Consumer web only, at https://search.savills.com/list. No documented JSON
+    API, no feed, no export. The app is backed by the undocumented
+    livev6-searchapi.savills.com host recorded above.
+  propertyRecords: not available
+  valuationAVM: >-
+    Savills valuation is a human professional advisory service delivered as a
+    report. No AVM product and no valuation API is published or documented.
+  transactions: not available
+  documents: not available
+  tenancy: not available
+  payments: not available
+
+webhooksEventsSdksPostman:
+  webhooks: None. No webhook, callback or push mechanism is documented.
+  events: No event bus, no streaming, no AsyncAPI document, no WebSocket surface.
+  sdks: None. No Savills SDK exists in any package registry, and no Savills
+    GitHub organization was found — https://github.com/savills returns 404.
+  postman: No official Postman collection or workspace found.
+  changelog: None — there is no developer portal to publish one on.
+  statusPage: None. status.savills.com does not resolve.
+  rateLimits: Not documented (nothing to rate limit publicly).
+  sandbox: None.
+  llmsTxt: >-
+    Neither https://www.savills.com/llms.txt nor https://www.savills.co.uk/llms.txt
+    exists (both 404), and https://www.savills.com/.well-known/ai-plugin.json is
+    404. Savills' robots.txt does actively disallow CCBot and SemrushBot, which
+    is the only machine-access posture the company publishes.
+
+harvest:
+  fetchDate: '2026-07-26'
+  specsHarvested: 0
+  openapiDirectory: null
+  note: |
+    No OpenAPI, Swagger, OData $metadata, AsyncAPI, GraphQL schema, JSON Schema
+    or Postman collection was found anywhere in the Savills estate. No openapi/
+    directory was created because there was nothing real to put in it.
+
+probes:
+- url: https://www.savills.com/
+  status: 200
+  note: Corporate global site, CloudFront-fronted. No developer or API link in
+    navigation or footer.
+- url: https://savills.com/
+  status: 200
+  note: Redirects to https://www.savills.com/.
+- url: https://developer.savills.com/
+  status: '000'
+  note: Does not resolve — no DNS record.
+- url: https://developers.savills.com/
+  status: '000'
+  note: Does not resolve — no DNS record.
+- url: https://docs.savills.com/
+  status: '000'
+  note: Does not resolve — no DNS record.
+- url: https://apis.savills.com/
+  status: '000'
+  note: Does not resolve — no DNS record.
+- url: https://api.savills.com/
+  status: 404
+  note: >-
+    Resolves to 172.166.206.45. Returns HTTP/1.1 404 "Resource Not Found" with
+    content-type application/json and body {"statusCode": 404, "message":
+    "Resource not found"}. Live gateway, no public routes.
+- url: https://api.savills.com/swagger/index.html
+  status: 404
+- url: https://api.savills.com/swagger/v1/swagger.json
+  status: 404
+- url: https://api.savills.com/openapi.json
+  status: 404
+- url: 'https://api.savills.com/$metadata'
+  status: 404
+- url: https://www.savills.com/developers
+  status: 404
+- url: https://www.savills.com/api
+  status: 404
+- url: https://www.savills.com/docs
+  status: 404
+- url: https://www.savills.com/openapi.json
+  status: 404
+- url: https://www.savills.com/swagger.json
+  status: 404
+- url: https://www.savills.com/api-docs
+  status: 404
+- url: https://www.savills.com/.well-known/openid-configuration
+  status: 404
+- url: https://www.savills.com/.well-known/security.txt
+  status: 404
+- url: https://www.savills.com/.well-known/ai-plugin.json
+  status: 404
+- url: https://www.savills.com/llms.txt
+  status: 404
+- url: https://www.savills.com/robots.txt
+  status: 200
+  note: >-
+    Allows general crawling but explicitly disallows CCBot, SemrushBot,
+    SemrushBot-SA, BUbiNG and AMAZONAWS, plus /contact/, /forms/ and /_inc/.
+    Declares one sitemap.
+- url: https://www.savills.com/sitemap.xml
+  status: 200
+  note: >-
+    82,307 bytes. Case-insensitive grep for developer / /api / swagger / openapi
+    returned zero matches across the entire document.
+- url: https://www.savills.com/sitemap_index.xml
+  status: 404
+- url: https://www.savills.com/why-savills/
+  status: 200
+  note: >-
+    Destination of /about-savills/. Confirms "more than 42,000 professionals
+    dedicated to commercial and prime residential real estate across 70
+    countries" and "For over 170 years".
+- url: https://www.savills.com/about-savills/
+  status: 200
+  note: Redirects to https://www.savills.com/why-savills/. WebFetch of the
+    original path returned 403 to that client; curl with a browser UA followed
+    the redirect to 200.
+- url: https://www.savills.com/contact-us/
+  status: 200
+  note: The only published route to any Savills conversation, developer or
+    otherwise.
+- url: https://www.savills.com/insight-and-opinion/
+  status: 200
+  note: Savills Research programme. PDF and web narrative; no data download,
+    no feed, no API.
+- url: https://ir.savills.com/
+  status: 200
+  note: >-
+    Investor relations. Confirms "Established in 1855, Savills plc is one of the
+    leading real estate advisors in the world" and "a global real estate services
+    provider listed on the London Stock Exchange".
+- url: https://www.savills.co.uk/
+  status: 200
+  note: UK home market site.
+- url: https://www.savills.co.uk/robots.txt
+  status: 200
+  note: Extensive parameter-handling disallows (filter, lat, lon, searchKey,
+    sector, officeId, nameSearchValue). No developer or API paths referenced.
+- url: https://www.savills.co.uk/api
+  status: 404
+- url: https://www.savills.co.uk/developers
+  status: 404
+- url: https://www.savills.co.uk/.well-known/openid-configuration
+  status: 404
+- url: https://www.savills.co.uk/llms.txt
+  status: 404
+- url: https://www.savills.co.uk/find-a-property/
+  status: 200
+  note: >-
+    284 KB page. Scanned for API host strings; the only machine surface it
+    reveals is https://search.savills.com/js/endpoints.js. No /api/, graphql,
+    odata or $metadata string appears anywhere in the markup.
+- url: https://search.savills.com/
+  status: 301
+  note: CloudFront (d359f9b77xyj5b.cloudfront.net). 301 to
+    https://www.savills.co.uk/find-a-property/. Sends an
+    access-control-allow-origin header of *.
+- url: https://search.savills.com/list
+  status: 200
+  note: The real consumer property search application (residential, commercial,
+    new homes, farms and estates, international).
+- url: https://search.savills.com/js/endpoints.js
+  status: 200
+  note: >-
+    Front-end endpoint configuration. Names four internal service hosts. This is
+    the single most informative artifact found and it confirms the API estate is
+    private, not public.
+- url: https://search.savills.com/openapi.json
+  status: 404
+- url: https://livev6-searchapi.savills.com/
+  status: 404
+- url: https://livev6-searchapi.savills.com/swagger/index.html
+  status: 404
+- url: https://livev6-searchapi.savills.com/swagger/v1/swagger.json
+  status: 404
+- url: https://livev6-searchapi.savills.com/openapi.json
+  status: 404
+- url: 'https://livev6-searchapi.savills.com/$metadata'
+  status: 404
+  note: content-type application/json — not an OData service.
+- url: https://livev6-authentication.savills.com/
+  status: 404
+- url: https://livev6-authentication.savills.com/.well-known/openid-configuration
+  status: 404
+  note: content-type application/json. No OIDC discovery served.
+- url: https://livev6-profile.savills.com/
+  status: 404
+- url: https://assets.savills.com/
+  status: 200
+  note: Static asset origin, content-type application/xml (bucket listing style
+    response). Not an API.
+- url: https://www.savills.us/
+  status: 200
+  note: US arm (formerly Savills Studley) — commercial real estate services, not
+    residential MLS participation.
+- url: https://www.savills.us/developers
+  status: 404
+- url: https://www.savills.us/api
+  status: 404
+- url: https://www.savills.us/openapi.json
+  status: 404
+- url: https://www.savills.us/.well-known/openid-configuration
+  status: 404
+- url: https://api.savills.us/
+  status: 404
+- url: https://developer.savills.us/
+  status: '000'
+  note: Does not resolve.
+- url: https://savillsim.com/
+  status: 200
+  note: Savills Investment Management. www.savillsim.com redirects here.
+- url: https://www.savillsim.com/developers
+  status: 404
+- url: https://www.savillsim.com/api
+  status: 404
+- url: https://api.savillsim.com/
+  status: '000'
+  note: Does not resolve.
+- url: https://developer.savillsim.com/
+  status: '000'
+  note: Does not resolve.
+- url: https://research.savills.com/
+  status: '000'
+  note: Does not resolve.
+- url: https://status.savills.com/
+  status: '000'
+  note: Does not resolve. No status page.
+- url: https://github.com/savills
+  status: 404
+  note: No Savills GitHub organization.
+- url: https://www.linkedin.com/company/savills
+  status: 200
+- url: https://www.reso.org/certificates/
+  status: 200
+  note: Fetched and searched for Savills / Savills Inc / Savills plc — no match.
+- url: https://www.reso.org/certification/
+  status: 200
+  note: Names no non-US organizations; Savills absent.
+- url: https://certification.reso.org/
+  status: 400
+  note: Live certification analytics report; rejects anonymous programmatic
+    requests.
+
+findings:
+- Absence is the finding. A FTSE-250 global real estate advisor with 42,000 people
+  in 70 countries publishes no developer portal, no API documentation, no
+  machine-readable contract, no SDK, no Postman collection and no changelog.
+- Savills unambiguously runs internal APIs — search.savills.com/js/endpoints.js
+  names four of them by hostname — and publishes none of them. The estate is
+  private by construction, not gated by licence.
+- >-
+  api.savills.com is live and answers in JSON, which makes it tempting to treat
+  as a developer surface. It is not — every path returns
+  {"statusCode": 404, "message": "Resource not found"} and nothing about it is
+  documented. Recording the status was the only honest thing to do with it.
+- No RESO anywhere, and structurally there could not be. RESO is a NAR/MLS
+  mechanism, the UK has no MLS, and Savills' US arm is commercial rather than
+  residential-MLS. The RESO certified-organizations list contains no UK entries
+  at all.
+- No open data from Savills. The open UK property layer is HM Land Registry
+  Price Paid and Ordnance Survey — public sector, not brokerage. Savills
+  Research is a publication programme, not a dataset.
+- The access gate is none-published rather than partner-only. Calling it
+  partner-only would imply a partner programme; none is published, and the only
+  documented route is a general corporate contact form.
+- Contrast with the portals in the same market is instructive. Zoopla at least
+  publishes readable OpenAPI contracts for its member-agent surface even though
+  credentials are membership-gated. Savills, as a brokerage, is a supplier into
+  that pipe and exposes nothing at all — the listing data it produces reaches
+  the market through Rightmove, Zoopla and OnTheMarket via agency CRM software,
+  never through a Savills API.
+
+sources:
+- url: https://ir.savills.com/
+  type: Reference
+  note: Corporate facts — established 1855, London Stock Exchange listed,
+    42,000+ people, 70+ countries.
+- url: https://www.savills.com/why-savills/
+  type: Reference
+  note: "More than 42,000 professionals dedicated to commercial and prime
+    residential real estate across 70 countries."
+- url: https://search.savills.com/js/endpoints.js
+  type: Reference
+  note: Front-end endpoint configuration naming four internal, undocumented
+    Savills service hosts.
+- url: https://www.savills.com/robots.txt
+  type: Reference
+  note: Only published machine-access posture — CCBot and SemrushBot disallowed.
+- url: https://www.savills.com/sitemap.xml
+  type: Reference
+  note: 82 KB sitemap containing zero developer, api, swagger or openapi paths.
+- url: https://www.reso.org/certificates/
+  type: Reference
+  note: RESO certified-organization list; no Savills, no UK entries.
+- url: https://www.savills.com/contact-us/
+  type: Contact
+  note: The only published route to any data conversation with Savills.
+
+actions:
+  apisYmlCreated: true
+  apisListed: 0
+  specsHarvested: 0
+  openapiDirectory: null
+  status: built-stub
+  reason: >-
+    Identity captured faithfully with a fully documented probe trail, but there
+    is no public developer or API surface to profile. apis[] is empty because
+    listing anything would require fabricating it.
