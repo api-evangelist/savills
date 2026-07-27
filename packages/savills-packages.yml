@@ -1,0 +1,20 @@
+generated: '2026-07-26'
+method: searched
+source: public package-registry and source-host searches for first-party Savills client libraries
+note: >-
+  No first-party Savills client library exists on any public package registry, and
+  there is nothing to derive one from — apis.yml carries no SDK, CLI or SourceCode
+  link because Savills documents no API. The npm registry search API returns zero
+  results for "savills". pypi.org/pypi/savills/json returns no package record. There
+  is no github.com/savills organization (HTTP 404 from the GitHub API), so there is
+  no first-party source host to catalogue. A GitHub repository search for "savills"
+  in the name returns only third-party work — employee side projects, agency web
+  builds and student exercises — none of it published by Savills plc and none of it
+  a client library for a Savills API. No Packages and no SDKs pointer is emitted,
+  because no package exists.
+registries_probed:
+- {registry: npm, query: savills, results: 0}
+- {registry: pypi, query: savills, results: 0}
+- {registry: github-org, query: github.com/savills, status: 404}
+- {registry: github-search, query: savills in:name, first_party_results: 0}
+packages: []

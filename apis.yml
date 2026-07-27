@@ -44,7 +44,7 @@ accessModel:
   - website
   generated: '2026-07-26'
   method: manual
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+image: https://www.savills.com/favicon-32x32.png
 tags:
 - Real Estate
 - United Kingdom
@@ -61,6 +61,8 @@ modified: '2026-07-26'
 specificationVersion: '0.19'
 apis: []
 common:
+- type: DomainSecurity
+  url: security/savills-domain-security.yml
 - type: Website
   url: https://www.savills.com/
 - type: Website
@@ -84,6 +86,26 @@ common:
 - type: Subsidiary
   name: Savills Investment Management
   url: https://savillsim.com/
+- type: Blog
+  name: Savills Global Blog
+  url: https://www.savills.com/blog/
+- type: Blog
+  name: Savills UK Blog
+  url: https://www.savills.co.uk/blog/
+- type: News
+  url: https://www.savills.com/news/
+- type: Careers
+  url: https://www.savills.com/why-savills/careers.aspx
+- type: PrivacyPolicy
+  url: https://www.savills.com/footer/privacy-policy.aspx
+- type: TermsOfService
+  name: Terms and Conditions
+  url: https://www.savills.com/footer/terms-and-conditions.aspx
+- type: SiteMap
+  url: https://www.savills.com/footer/site-map.aspx
+- type: LLMsTxt
+  name: Generated llms.txt
+  url: llms/savills-llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
