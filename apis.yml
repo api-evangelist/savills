@@ -31,6 +31,17 @@ description: >-
   property layer belongs to the public sector (HM Land Registry Price Paid Data and
   Ordnance Survey), not to the brokerage. For a developer there is no gate to pass,
   because there is no door: the only published route is the corporate contact form.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: none-published
