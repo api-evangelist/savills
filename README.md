@@ -1,4 +1,4 @@
-# Savills (savills)
+# Savills
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,90 +64,82 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Savills plc is a London-headquartered global real estate advisor, established in 1855, listed on the London Stock Exchange, with more than 42,000 people in over 70 countries. It sits on the advisory side of the property value chain rather than the data-platform side: commercial and prime residential agency, transaction advisory and capital markets, valuation and professional services, building and project consultancy, property and facilities management, rural and agricultural advisory, occupier services, the Savills Research publication programme, and a separate fund manager in Savills Investment Management. Its home market is the United Kingdom, where there is no MLS and no cooperative listing standard — residential stock reaches consumers through the Rightmove and Zoopla duopoly by way of agency CRM software (Reapit, Alto, Street, Apex27) rather than a shared cooperative pool. Savills is a supplier into that pipe, not an operator of it. Its API posture is the honest null case for this sector. Savills publishes no developer portal, no API documentation, no SDK, no Postman collection and no machine-readable contract of any kind.
+Savills plc is a London-headquartered global real estate advisor, established in 1855, listed on the London Stock Exchange, with more than 42,000 people in over 70 countries. It sits on the advisory side of the property value chain rather than the data-platform side: commercial and prime residential agency, transaction advisory and capital markets, valuation and professional services, building and project consultancy, property and facilities management, rural and agricultural advisory, occupier services, the Savills Research publication programme, and a separate fund manager in Savills Investment Management. Its home market is the United Kingdom, where there is no MLS and no cooperative listing standard — residential stock reaches consumers through the Rightmove and Zoopla duopoly by way of agency CRM software (Reapit, Alto, Street, Apex27) rather than a shared cooperative pool. Savills is a supplier into that pipe, not an operator of it. Its API posture is the honest null case for this sector. Savills publishes no developer portal, no API documentation, no SDK, no Postman collection and no machine-readable contract of any kind: developer., developers., docs. and apis.savills.com do not resolve, /developers, /api, /docs, /openapi.json, /swagger.json and /api-docs on savills.com, savills.co.uk and savills.us all return 404, and no OpenID Connect discovery document is served. Undocumented internal service hosts do exist behind the consumer property search — livev6-searchapi, livev6-authentication and livev6-profile.savills.com, named in the search application's own endpoints.js — but every one of them returns 404 to an anonymous client and none is described anywhere public. There is no RESO Web API or Data Dictionary certification, no OData $metadata document and no Universal Property Identifier anywhere in the Savills estate; RESO is a North American NAR/MLS construct and the UK has nothing to certify against. Savills publishes no open data either — its research output is PDF and web narrative, and the genuinely open UK property layer belongs to the public sector (HM Land Registry Price Paid Data and Ordnance Survey), not to the brokerage. For a developer there is no gate to pass, because there is no door: the only published route is the corporate contact form.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/savills/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/savills/refs/heads/main/apis.yml)
+**Areas:** Real Estate · United Kingdom · Commercial Real Estate · Property Listings · Valuation · Property Management · Brokerage · Rentals · PropTech · Investment Management
 
-## Tags
+## Savills on APIs.io
 
-- Real Estate
-- United Kingdom
-- Commercial Real Estate
-- Property Listings
-- Valuation
-- Property Management
-- Brokerage
-- Rentals
-- PropTech
-- Investment Management
+Everything profiled for Savills is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/savills/](https://apis.io/providers/savills/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-07-26
-- **Modified:** 2026-07-26
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Security (1)
 
-None. Savills publishes no documented public API.
+Authentication, trust centre, and vulnerability disclosure.
 
-Every conventional developer entry point was probed on 2026-07-26 and every one failed:
+- [Savills Domain Security](https://apis.io/security/savills/savills-domain-security/)
 
-- `developer.savills.com`, `developers.savills.com`, `docs.savills.com` and `apis.savills.com` do not resolve in DNS.
-- `api.savills.com` resolves and answers in JSON, but returns `{"statusCode": 404, "message": "Resource not found"}` on every path tried — an API gateway with no public routes.
-- `/developers`, `/api`, `/docs`, `/openapi.json`, `/swagger.json`, `/api-docs` and `/.well-known/openid-configuration` all return 404 on `savills.com`, `savills.co.uk` and `savills.us`.
-- The 82 KB sitemap at `https://www.savills.com/sitemap.xml` (HTTP 200) contains zero `developer`, `/api`, `swagger` or `openapi` paths.
+## Where to find this API
 
-Savills does run internal APIs. The property search front end loads [`https://search.savills.com/js/endpoints.js`](https://search.savills.com/js/endpoints.js) (HTTP 200), which names four of them by hostname — `livev6-searchapi.savills.com`, `livev6-authentication.savills.com`, `livev6-profile.savills.com` and `assets.savills.com`. All of the service hosts return 404 anonymously, none serves an OpenAPI, Swagger or OData `$metadata` document, and none is documented anywhere public. The estate is private by construction, not gated behind a licence.
-
-## RESO Posture
-
-**Not certified. No RESO reference found anywhere in the Savills estate.**
-
-The official RESO certified-organization list at [https://www.reso.org/certificates/](https://www.reso.org/certificates/) (HTTP 200) was searched for Savills, Savills Inc and Savills plc — no match, and no UK entries at all. `https://certification.reso.org/` returned HTTP 400 to an anonymous client. No OData `$metadata` document exists (probed on `api.savills.com` and `livev6-searchapi.savills.com`, both 404), and no Universal Property Identifier appears anywhere.
-
-This is structural rather than a lapse. RESO is a North American NAR/MLS mechanism, the UK has no MLS to certify against, and Savills' US arm (formerly Savills Studley) is a commercial real estate services firm rather than a residential MLS participant.
-
-## Access Gate
-
-**`none-published`.** There is no developer signup, no application form, no partner programme page, no data licence, no sandbox, no API terms of use and no key issuance process published anywhere on `savills.com`, `savills.co.uk`, `savills.us` or `savillsim.com`. The only published route to any Savills data conversation is the general corporate contact form at [https://www.savills.com/contact-us/](https://www.savills.com/contact-us/). Classifying this as `partner-only` would imply a partner programme exists; none is published.
-
-## Open Data
-
-**No.** Savills publishes no open, unlicensed, publicly callable dataset. Savills Research ships as PDF reports and web narrative at [https://www.savills.com/insight-and-opinion/](https://www.savills.com/insight-and-opinion/) — no data download, no CSV, no feed, no API.
-
-The genuinely open UK property layer sits in the public sector and is not operated by Savills: HM Land Registry Price Paid Data under the Open Government Licence, and Ordnance Survey's addressing and mapping open products. This is the structural inverse of the United States — the UK has no industry standard and no MLS, but it does have real open government property APIs, and none of them come from the brokerages or the portals.
-
-## Auth Model
-
-**None published.** No authentication scheme is documented because no API is documented. OIDC discovery was probed anonymously on three hosts and returned 404 on all of them, including `https://livev6-authentication.savills.com/.well-known/openid-configuration` — the authentication service the consumer property search actually calls. No API key scheme, no OAuth2 flow, no SAML member-portal entry point, and no `security.txt`.
-
-## Webhooks, Events, SDKs, Postman
-
-Absence across the board, and that is the finding:
-
-- **Webhooks:** none documented.
-- **Events:** no event bus, no streaming, no AsyncAPI, no WebSocket surface.
-- **SDKs:** none. `https://github.com/savills` returns 404 — there is no Savills GitHub organization.
-- **Postman:** no official collection or workspace.
-- **Changelog / status page / rate limits / sandbox:** none.
-- **`llms.txt` / `ai-plugin.json`:** neither exists. Savills' `robots.txt` does actively disallow CCBot and SemrushBot, which is the only machine-access posture the company publishes.
-
-## Common Properties
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.savills.com/)
-- [Savills United Kingdom](https://www.savills.co.uk/)
-- [Savills United States](https://www.savills.us/)
-- [Savills Property Search](https://search.savills.com/list)
-- [Investor Relations](https://ir.savills.com/)
-- [Insight & Opinion](https://www.savills.com/insight-and-opinion/)
-- [Contact](https://www.savills.com/contact-us/)
-- [LinkedIn](https://www.linkedin.com/company/savills)
-- [Savills Investment Management](https://savillsim.com/)
+- [Blog](https://www.savills.com/blog/)
+- [Terms of service](https://www.savills.com/footer/terms-and-conditions.aspx)
+- [Privacy policy](https://www.savills.com/footer/privacy-policy.aspx)
 
-## Review
+## API Evangelist rating
 
-The full probe trail — 68 recorded URLs with HTTP status, the RESO evidence, the access gate, the open-data finding and the auth model — is in [review.yml](review.yml).
+**Kin Score 9.2** — minimal · rubric 0.24.0 · scored 2026-10-17
 
-## Maintainers
+| Facet | Score |
+|---|---|
+| Discoverability | 56.3 |
+| Contract quality | 0.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 2.4 |
+| Access clarity | 21.1 |
 
-- Kin Lane &lt;kin@apievangelist.com&gt;
+**Agent readiness 0.0** — human-only
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 13.0** — Securities & Market Data
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/savills/](https://apis.io/providers/savills/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Savills: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/savills/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
